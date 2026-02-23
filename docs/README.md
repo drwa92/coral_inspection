@@ -102,7 +102,7 @@ rospack list | grep coral_inspection
 
 ---
 
-## ▶️ Running the Simulation
+# ▶️ Running the Simulation
 
 After completing installation and building the workspace, follow the steps below.
 
