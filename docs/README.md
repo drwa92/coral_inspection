@@ -40,3 +40,105 @@ Instead, it adds a safe, interpretable, high-level reasoning layer on top of con
 ---
 
 
+# 📦 Installation
+
+## Prerequisites
+
+- Ubuntu 20.04 (recommended)
+- ROS Noetic
+- Python 3.8+
+- Gazebo
+- catkin workspace setup
+
+---
+
+## 1️⃣ Install ROS Noetic
+
+```bash
+sudo apt update
+sudo apt install ros-noetic-desktop-full
+
+
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws
+catkin_make
+source devel/setup.bash
+
+# 📦 Installation
+
+## Prerequisites
+
+- Ubuntu 20.04 (recommended)
+- ROS Noetic
+- Python 3.8+
+- Gazebo
+- catkin workspace
+
+---
+
+##  Install & Setup Environment
+
+```bash
+# Update system
+sudo apt update
+
+# Install ROS Noetic
+sudo apt install ros-noetic-desktop-full
+
+# Initialize rosdep
+sudo rosdep init
+rosdep update
+
+# Source ROS
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
+# Create catkin workspace
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws
+catkin_make
+
+# Source workspace
+echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
+# Install uuv_simulator
+cd ~/catkin_ws/src
+git clone https://github.com/uuvsimulator/uuv_simulator.git
+cd ~/catkin_ws
+rosdep install --from-paths src --ignore-src -r -y
+catkin_make
+
+# Clone coral_inspection
+cd ~/catkin_ws/src
+git clone https://github.com/drwa92/coral_inspection.git
+
+# Install Python dependencies (if available)
+pip install -r requirements.txt
+
+# Final build
+cd ~/catkin_ws
+catkin_make
+source devel/setup.bash
+
+# Verify installation
+rospack list | grep coral_inspection
+
+# ▶️ Running the Simulation
+
+After completing installation and building the workspace, follow the steps below.
+
+---
+
+## 1️⃣ Source the Workspace
+
+⚠️ Important:
+Before starting the LLM planner, you must first launch the Gazebo simulation environment and spawn the BlueROV2 model.
+
+
+```bash
+cd ~/catkin_ws
+source devel/setup.bash
+
+roslaunch coral_inspection coral_llm_demo.launch
+
