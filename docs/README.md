@@ -117,3 +117,94 @@ cd ~/catkin_ws
 source devel/setup.bash
 
 roslaunch coral_inspection coral_llm_demo.launch
+
+
+---
+
+# 🔍 Monitoring & Mission Execution
+
+Once Gazebo and the BlueROV2 are running, the mission framework becomes active.
+
+The system follows this runtime sequence:
+
+1. Receive natural-language instruction  
+2. Generate semantic JSON mission plan  
+3. Validate plan against allowed action set  
+4. Execute actions sequentially  
+5. Monitor runtime events  
+6. Trigger replanning if necessary  
+
+---
+
+## 📡 Inspect Active ROS Topics
+
+To view all active topics:
+
+```bash
+rostopic list
+
+```
+
+
+---
+
+# 🔍 Runtime Topics & Mission Flow
+
+Your launch file starts the following core nodes:
+
+- `llm_planner`
+- `coral_mission_memory`
+- `coral_event_monitor`
+- `coral_action_executor`
+
+All communication happens under the namespace: /coral_captain/
+
+
+---
+
+# 🧠 Submitting a Mission Prompt
+
+The LLM planner listens to:
+
+
+You can publish a natural-language mission using:
+
+```bash
+rostopic pub /coral_captain/user_prompt std_msgs/String \
+"data: 'Survey site A, inspect site B, then return home.'"
+
+```
+
+## ⚙️ Monitoring Execution
+
+The `coral_action_executor` subscribes to:
+
+
+It publishes execution status to:
+
+/coral_captain/executor_status
+
+
+Monitor executor progress:
+
+```bash
+rostopic echo /coral_captain/executor_status
+
+```
+
+
+When a valid semantic mission plan is published to this topic, the executor begins executing the actions sequentially.
+
+---
+
+### 📄 Manually Publish a Test Plan
+
+You can manually trigger the executor by publishing a JSON plan:
+
+```bash
+rostopic pub /coral_captain/plan std_msgs/String \
+"data: '{\"Plan\": [{\"action\": \"hold\"}]}'"
+
+```
+This will cause the executor to receive the plan and execute the hold action.
+
