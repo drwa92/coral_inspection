@@ -117,7 +117,7 @@ cd ~/catkin_ws
 source devel/setup.bash
 
 roslaunch coral_inspection coral_llm_demo.launch
-
+```
 
 ---
 
