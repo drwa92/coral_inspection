@@ -1,0 +1,29 @@
+<!-- coral_sites_tf.launch : Publish static TF frames world -> site_{A,B,C,D} -->
+<launch>
+  <!-- Set this to true if you want site_C yawed +90deg (long axis N-S) -->
+  <arg name="yaw_site_C_rad" default="0.0" />
+  <arg name="set_yaw_for_C" default="false" />
+
+  <!-- A -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="tf_site_A"
+        args="0 0 0 0 0 0 world site_A" output="screen"/>
+  <!-- B -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="tf_site_B"
+        args="80 0 0 0 0 0 world site_B" output="screen"/>
+  <!-- C (no yaw by default) -->
+  <group unless="$(arg set_yaw_for_C)">
+    <node pkg="tf2_ros" type="static_transform_publisher" name="tf_site_C"
+          args="0 80 0 0 0 0 world site_C" output="screen"/>
+  </group>
+  <!-- C (with yaw if requested) -->
+  <group if="$(arg set_yaw_for_C)">
+    <node pkg="tf2_ros" type="static_transform_publisher" name="tf_site_C_yawed"
+          args="0 80 0 0 0 $(arg yaw_site_C_rad) world site_C" output="screen"/>
+  </group>
+  <!-- D -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="tf_site_D"
+        args="80 80 0 0 0 0 world site_D" output="screen"/>
+
+  <!-- Optional: RViz -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find coral_inspection)/config/coral_sites.rviz" required="false"/>
+</launch>

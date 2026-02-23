@@ -1,0 +1,11 @@
+<library path="src">
+  <class
+      name="Coral Captain Panel"
+      type="coral_inspection.coral_captain_panel.CoralCaptainPanel"
+      base_class_type="rqt_gui_py::Plugin">
+    <description>
+      RQT panel for Coral Captain: send prompts, review plans, approve and execute,
+      and monitor mission memory.
+    </description>
+  </class>
+</library>

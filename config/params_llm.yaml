@@ -1,0 +1,8 @@
+# Topics
+user_prompt_topic: "/coral_captain/user_prompt"
+external_plan_topic: "/baseline/plan_proposal_external"
+status_topic: "/coral_captain/llm_status"
+
+# Defaults for a minimal plan
+default_yaml: "/home/mbzirc2/catkin_ws/src/coral_inspection/data/example_waypoints.yaml"
+interpolator: "cubic"

@@ -1,0 +1,57 @@
+<launch>
+  <!-- LLM planner with mission memory -->
+  <node pkg="coral_inspection"
+        type="llm_planner_node.py"
+        name="llm_planner"
+        output="screen">
+    <!-- Topics -->
+    <param name="user_prompt_topic" value="/coral_captain/user_prompt"/>
+    <param name="plan_topic"        value="/coral_captain/plan"/>
+    <param name="status_topic"      value="/coral_captain/llm_status"/>
+
+    <!-- OpenAI config -->
+    <param name="openai_config"     value="$(find coral_inspection)/config/openai_keys.yaml"/>
+
+    <!-- Mission memory service (must match coral_mission_memory) -->
+    <param name="memory_service"    value="/coral_captain/get_memory"/>
+  </node>
+
+  <!-- Mission memory node -->
+  <node pkg="coral_inspection"
+        type="coral_mission_memory.py"
+        name="coral_mission_memory"
+        output="screen">
+    <!-- Where executor sends events -->
+    <param name="event_topic"        value="/coral_captain/memory_event"/>
+    <!-- Latched summary of memory -->
+    <param name="state_topic"        value="/coral_captain/memory_state"/>
+    <!-- Trigger service that llm_planner calls -->
+    <param name="get_memory_service" value="/coral_captain/get_memory"/>
+  </node>
+
+  <!-- Event monitor (for replan_on_event / external replanning) -->
+  <node pkg="coral_inspection"
+        type="coral_event_monitor.py"
+        name="coral_event_monitor"
+        output="screen">
+    <!-- Optional overrides (you can uncomment/tune later)
+    <param name="replan_param"     value="/coral_captain/replan_config"/>
+    <param name="event_topic"      value="/coral_captain/event_signal"/>
+    <param name="user_prompt_topic" value="/coral_captain/user_prompt"/>
+    -->
+  </node>
+
+  <!-- Action executor -->
+  <node pkg="coral_inspection"
+        type="coral_action_executor.py"
+        name="coral_action_executor"
+        output="screen">
+    <param name="vehicle_ns"      value="/bluerov2"/>
+    <param name="plan_topic"      value="/coral_captain/plan"/>
+    <!-- You chose this name; executor publishes JSON status here -->
+    <param name="status_topic"    value="/coral_captain/executor_status"/>
+    <param name="wait_for_motion" value="true"/>
+    <param name="pose_topic"      value="/bluerov2/pose_gt"/>
+    <param name="sites_yaml"      value="$(find coral_inspection)/config/sites.yaml"/>
+  </node>
+</launch>

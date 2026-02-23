@@ -1,0 +1,58 @@
+# Grid site centers and footprints for Gazebo coral inspection
+frames:
+  site_A: {x: 0.0,  y: 0.0,  z: -30.0, yaw_deg: 0.0}
+  site_B: {x: 80.0, y: 0.0,  z: -30.0, yaw_deg: 0.0}
+  site_C: {x: 0.0,  y: 80.0, z: -30.0, yaw_deg: 90.0}
+  site_D: {x: 80.0, y: 80.0, z: -30.0, yaw_deg: 0.0}
+
+footprints:
+  coral_bed_A:
+    center: site_A
+    type: rectangle
+    size_x: 34.0
+    size_y: 32.0
+    yaw_deg: 0.0
+    survey_profile:        # NEW: high-detail survey
+      stripe_spacing: 4.0
+      speed_mps: 0.4
+      altitude_m: 3.0
+      radius_of_acceptance: 1.0
+
+  coral_bed_circle_B:
+    center: site_B
+    type: circle
+    diameter: 15.0
+    yaw_deg: 0.0
+    survey_profile:        # NEW: orbit, slower due to sensitivity
+      speed_mps: 0.3
+      altitude_m: 4.0
+      orbit_padding: 2.0   # how far outside coral edge
+
+  coral_bed_cluster_C:
+    center: site_C
+    type: ellipse
+    size_x: 21.0
+    size_y: 6.0
+    yaw_deg: 90.0
+    survey_profile:        # mid-detail
+      stripe_spacing: 5.0
+      speed_mps: 0.5
+      altitude_m: 3.5
+
+  coral_bed_crown_D:
+    center: site_D
+    type: square
+    size: 5.0
+    yaw_deg: 0.0
+    survey_profile:        # very fragile → slow, tight stripes
+      stripe_spacing: 2.0
+      speed_mps: 0.2
+      altitude_m: 2.5
+      radius_of_acceptance: 0.7
+
+survey:
+  stripe_spacing: 4.0     # global default
+  turn_buffer:   5.0
+  speed_mps:     0.5
+  altitude_m:    3.0
+
