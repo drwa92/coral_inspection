@@ -97,3 +97,26 @@ source devel/setup.bash
 
 # Verify installation
 rospack list | grep coral_inspection
+
+
+
+---
+
+## ▶️ Running the Simulation
+
+After completing installation and building the workspace, follow the steps below.
+
+---
+
+## 🚀 Launch Gazebo + BlueROV2
+
+⚠️ **Important:**  
+Before starting the LLM planner, you must first launch the Gazebo simulation environment and spawn the BlueROV2 model.
+
+```bash
+cd ~/catkin_ws
+source devel/setup.bash
+
+roslaunch coral_inspection coral_llm_demo.launch
+
+
