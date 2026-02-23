@@ -48,7 +48,7 @@ Instead, it adds a safe, interpretable, high-level reasoning layer on top of con
 - ROS Noetic
 - Python 3.8+
 - Gazebo
-- catkin workspace setup
+- UUV Simulator
 
 ---
 
@@ -64,15 +64,6 @@ cd ~/catkin_ws
 catkin_make
 source devel/setup.bash
 
-# 📦 Installation
-
-## Prerequisites
-
-- Ubuntu 20.04 (recommended)
-- ROS Noetic
-- Python 3.8+
-- Gazebo
-- catkin workspace
 
 ---
 
@@ -113,8 +104,6 @@ catkin_make
 cd ~/catkin_ws/src
 git clone https://github.com/drwa92/coral_inspection.git
 
-# Install Python dependencies (if available)
-pip install -r requirements.txt
 
 # Final build
 cd ~/catkin_ws
@@ -124,13 +113,18 @@ source devel/setup.bash
 # Verify installation
 rospack list | grep coral_inspection
 
+---
+
+
+
+
 # ▶️ Running the Simulation
 
 After completing installation and building the workspace, follow the steps below.
 
 ---
 
-## 1️⃣ Source the Workspace
+##  Source the Workspace
 
 ⚠️ Important:
 Before starting the LLM planner, you must first launch the Gazebo simulation environment and spawn the BlueROV2 model.
