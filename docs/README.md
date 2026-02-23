@@ -1,6 +1,7 @@
 # 🪸 Coral Inspection  
 ### LLM-Guided Adaptive Mission Planning for Autonomous Underwater Coral Reef Monitoring
 
+---
 
 # 🌊 Overview
 
@@ -32,13 +33,12 @@ All validated in a **Gazebo + BlueROV2 simulation environment**.
 - ✅ Persistent mission memory for long-horizon planning  
 - ✅ Event-driven adaptive replanning  
 - ✅ Operator-interpretable autonomy layer  
-- ✅ Simulation validation using uuv_simulator  
+- ✅ Simulation validation using UUV Simulator  
 
 This work does **not** replace low-level navigation or control.  
 Instead, it adds a safe, interpretable, high-level reasoning layer on top of conventional ROV autonomy.
 
 ---
-
 
 # 📦 Installation
 
@@ -52,22 +52,7 @@ Instead, it adds a safe, interpretable, high-level reasoning layer on top of con
 
 ---
 
-## 1️⃣ Install ROS Noetic
-
-```bash
-sudo apt update
-sudo apt install ros-noetic-desktop-full
-
-
-mkdir -p ~/catkin_ws/src
-cd ~/catkin_ws
-catkin_make
-source devel/setup.bash
-
-
----
-
-##  Install & Setup Environment
+## 🔧 Install & Setup Environment
 
 ```bash
 # Update system
@@ -80,7 +65,7 @@ sudo apt install ros-noetic-desktop-full
 sudo rosdep init
 rosdep update
 
-# Source ROS
+# Source ROS automatically
 echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
@@ -89,21 +74,21 @@ mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws
 catkin_make
 
-# Source workspace
+# Source workspace automatically
 echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
-# Install uuv_simulator
+# Install UUV Simulator
 cd ~/catkin_ws/src
 git clone https://github.com/uuvsimulator/uuv_simulator.git
+
 cd ~/catkin_ws
 rosdep install --from-paths src --ignore-src -r -y
 catkin_make
 
-# Clone coral_inspection
+# Clone coral_inspection repository
 cd ~/catkin_ws/src
 git clone https://github.com/drwa92/coral_inspection.git
-
 
 # Final build
 cd ~/catkin_ws
@@ -112,27 +97,3 @@ source devel/setup.bash
 
 # Verify installation
 rospack list | grep coral_inspection
-
----
-
-
-
-
-# ▶️ Running the Simulation
-
-After completing installation and building the workspace, follow the steps below.
-
----
-
-##  Source the Workspace
-
-⚠️ Important:
-Before starting the LLM planner, you must first launch the Gazebo simulation environment and spawn the BlueROV2 model.
-
-
-```bash
-cd ~/catkin_ws
-source devel/setup.bash
-
-roslaunch coral_inspection coral_llm_demo.launch
-
