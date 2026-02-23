@@ -98,9 +98,8 @@ source devel/setup.bash
 # Verify installation
 rospack list | grep coral_inspection
 
+```
 
-
----
 
 # ▶️ Running the Simulation
 
@@ -118,5 +117,3 @@ cd ~/catkin_ws
 source devel/setup.bash
 
 roslaunch coral_inspection coral_llm_demo.launch
-
-
