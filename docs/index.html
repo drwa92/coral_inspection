@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM-Guided Adaptive Mission Planning for Autonomous Underwater Vehicles in Coral Reef Monitoring</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #0077b6 0%, #00b4d8 100%);
+            color: white;
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            width: 100%;
+            margin: 0 0 20px 0;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        nav {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border-left: 4px solid #0077b6;
+        }
+
+        nav h2 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.3rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: flex-start;
+        }
+
+        nav a {
+            color: #0077b6;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.0rem;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background-color: #e9ecef;
+            border-left: 4px solid #0077b6;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-bottom: 3px solid #0077b6;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .intro-points {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .point-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 12px 16px;
+            border-radius: 6px;
+            border-left: 4px solid #0077b6;
+            transition: transform 0.2s, box-shadow 0.2s;
+            flex: 1;
+            min-width: 200px;
+            max-width: 320px;
+        }
+
+        .point-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 119, 182, 0.15);
+        }
+
+        .point-card h4 {
+            color: #0077b6;
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .point-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .code-block {
+            background-color: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 16px 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #0077b6 0%, #00b4d8 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .feature-card h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .citation-box {
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .menu-bar {
+            background: #0077b6;
+            padding: 5px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 119, 182, 0.2);
+            border-radius: 15px;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .menu-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .menu-bar a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid #e1e4e8;
+            margin-top: 60px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .intro-points {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>LLM-Guided Adaptive Mission Planning for Autonomous Underwater Vehicles in Coral Reef Monitoring</h1>
+        <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.95); margin-top: 15px; font-weight: 400; text-align: center; margin-bottom: 8px;">
+            Waseem Akram<sup>a</sup>, Muhayy Ud Din<sup>a</sup>, Atif Sultan<sup>a</sup>, Tarek Taha<sup>a</sup>, Irfan Hussain<sup>a</sup>
+        </p>
+        <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.85); margin-top: 0; line-height: 1.4; text-align: center; margin-bottom: 3px;">
+            <sup>a</sup>Khalifa University Center for Autonomous Robotic Systems (KUCARS), United Arab Emirates
+        </p>
+        <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.85); margin-top: 0; line-height: 1.4; text-align: center; margin-bottom: 8px;">
+            In collaboration with Dubai Future Labs
+        </p>
+        <p style="font-size: 1rem; color: rgba(255, 255, 255, 0.9); margin-top: 0; font-style: italic; text-align: center;">
+            Preprint submitted to Elsevier
+        </p>
+    </header>
+
+    <div class="menu-bar">
+        <a href="https://github.com/drwa92/coral_inspection" target="_blank">💻 GitHub Repo</a>
+        <a href="assets/coral_paper.pdf" target="_blank">📄 Paper (PDF)</a>
+        <a href="#table-of-contents">📑 Table of Contents</a>
+    </div>
+
+    <section>
+        <p style="font-size: 1.05rem; line-height: 1.6; color: #34495e; margin-bottom: 20px;">
+            This page accompanies the paper <strong>"LLM-Guided Adaptive Mission Planning for Autonomous Underwater Vehicles in Coral Reef Monitoring"</strong>.
+            It presents the system overview, architecture, semantic action interface, simulation setup, and a practical guide for using the
+            <code>coral_inspection</code> ROS package with a BlueROV2 in Gazebo.
+        </p>
+
+        <h3>Abstract</h3>
+        <p style="text-align: justify; background-color: #f8f9fa; padding: 20px; border-radius: 6px; border-left: 4px solid #0077b6; font-style: italic; line-height: 1.6;">
+            Coral reef monitoring missions are long-horizon, multi-stage, and must operate under uncertain underwater conditions. Traditional
+            waypoint-based planners lack the ability to adapt online, reason over mission context, or provide interpretable decisions for human
+            supervisors. This work proposes an LLM-guided adaptive mission planning framework for Autonomous Underwater Vehicles (AUVs) applied
+            to coral reef monitoring. A constrained semantic action interface, coupled with a persistent mission memory and event-driven
+            replanning, allows natural-language mission instructions to be translated into executable, geometry-aware survey plans. The system
+            is implemented on a BlueROV2 platform in a Gazebo-based UUV simulation, demonstrating robust multi-site coral inspection,
+            memory-aware continuation, and operator-interpretable autonomy.
+        </p>
+    </section>
+
+    <nav id="table-of-contents">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#overview">System Overview</a></li>
+            <li><a href="#architecture">System Architecture</a></li>
+            <li><a href="#semantic-interface">Semantic Action Interface</a></li>
+            <li><a href="#simulation-env">Simulation Environment</a></li>
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#runtime-flow">Runtime Topics & Monitoring</a></li>
+            <li><a href="#citation">Citation</a></li>
+        </ul>
+    </nav>
+
+    <section id="overview">
+        <h2>System Overview</h2>
+        <p>
+            The framework introduces a structured Large Language Model (LLM)-guided mission planning layer on top of a conventional underwater
+            robotics stack. Instead of hand-crafting waypoint sequences, operators describe high-level coral monitoring objectives in natural
+            language, and the system produces safe, interpretable, and geometry-aware mission plans that can be executed by a BlueROV2.
+        </p>
+
+        <div class="intro-points">
+            <div class="point-card">
+                <h4>LLM-Guided Planning</h4>
+                <p>Natural-language instructions are translated into structured JSON mission plans using a constrained LLM planner.</p>
+            </div>
+            <div class="point-card">
+                <h4>Mission Memory</h4>
+                <p>Persistent memory tracks visited sites, completed actions, and events to support long-horizon missions.</p>
+            </div>
+            <div class="point-card">
+                <h4>Event-Driven Replanning</h4>
+                <p>Execution or safety events trigger replanning using updated mission memory and environment context.</p>
+            </div>
+            <div class="point-card">
+                <h4>Human-in-the-Loop</h4>
+                <p>Operators can inspect plans, monitor execution, and intervene when needed through ROS topics and tools.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="architecture">
+        <h2>System Architecture</h2>
+        <p>
+            The system is organized into four main ROS nodes, all launched by a single mission configuration file in the
+            <code>coral_inspection</code> package.
+        </p>
+
+        <div class="two-column">
+            <div>
+                <h3>Core Components</h3>
+                <ul>
+                    <li><strong>LLM Planner (<code>llm_planner_node.py</code>)</strong> – Converts user prompts into JSON mission plans using mission memory and constraints.</li>
+                    <li><strong>Mission Memory (<code>coral_mission_memory.py</code>)</strong> – Maintains a structured representation of mission history, sites, and events.</li>
+                    <li><strong>Event Monitor (<code>coral_event_monitor.py</code>)</strong> – Observes events and triggers replanning when conditions are met.</li>
+                    <li><strong>Action Executor (<code>coral_action_executor.py</code>)</strong> – Executes each semantic action and publishes execution status and memory events.</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4>High-Level Data Flow</h4>
+                <p>
+                    <strong>Natural-Language Prompt</strong> → LLM Planner → Semantic Plan (JSON) → Action Executor → Vehicle Control<br><br>
+                    During execution, events and state are fed into the Mission Memory. When significant events occur, the
+                    Event Monitor triggers replanning, and the LLM Planner produces an updated mission plan grounded in the
+                    updated memory.
+                </p>
+            </div>
+        </div>
+
+        <h3>Launch Configuration (Excerpt)</h3>
+        <div class="code-block">
+<pre><code>&lt;launch&gt;
+  &lt;node pkg="coral_inspection" type="llm_planner_node.py"
+        name="llm_planner" output="screen"&gt;
+    &lt;param name="user_prompt_topic" value="/coral_captain/user_prompt"/&gt;
+    &lt;param name="plan_topic"        value="/coral_captain/plan"/&gt;
+    &lt;param name="status_topic"      value="/coral_captain/llm_status"/&gt;
+    &lt;param name="openai_config"
+           value="$(find coral_inspection)/config/openai_keys.yaml"/&gt;
+    &lt;param name="memory_service"
+           value="/coral_captain/get_memory"/&gt;
+  &lt;/node&gt;
+
+  &lt;node pkg="coral_inspection" type="coral_mission_memory.py"
+        name="coral_mission_memory" output="screen"&gt;
+    &lt;param name="event_topic"        value="/coral_captain/memory_event"/&gt;
+    &lt;param name="state_topic"        value="/coral_captain/memory_state"/&gt;
+    &lt;param name="get_memory_service" value="/coral_captain/get_memory"/&gt;
+  &lt;/node&gt;
+
+  &lt;node pkg="coral_inspection" type="coral_event_monitor.py"
+        name="coral_event_monitor" output="screen"&gt;
+    &lt;!-- Replanning logic, optional parameters --&gt;
+  &lt;/node&gt;
+
+  &lt;node pkg="coral_inspection" type="coral_action_executor.py"
+        name="coral_action_executor" output="screen"&gt;
+    &lt;param name="vehicle_ns"      value="/bluerov2"/&gt;
+    &lt;param name="plan_topic"      value="/coral_captain/plan"/&gt;
+    &lt;param name="status_topic"    value="/coral_captain/executor_status"/&gt;
+    &lt;param name="wait_for_motion" value="true"/&gt;
+    &lt;param name="pose_topic"      value="/bluerov2/pose_gt"/&gt;
+    &lt;param name="sites_yaml"
+           value="$(find coral_inspection)/config/sites.yaml"/&gt;
+  &lt;/node&gt;
+&lt;/launch&gt;
+</code></pre>
+        </div>
+    </section>
+
+    <section id="semantic-interface">
+        <h2>Semantic Action Interface</h2>
+        <p>
+            The LLM is constrained to a predefined set of semantic actions to guarantee safety and executability. Plans are represented
+            as an ordered list of actions with parameters:
+        </p>
+
+        <div class="two-column">
+            <div>
+                <h3>Action Categories</h3>
+                <ul>
+                    <li><strong>Navigation</strong>: <code>go_to</code>, <code>go_to_site</code>, <code>waypoint_list</code>, <code>waypoint_file</code></li>
+                    <li><strong>Survey</strong>: <code>survey_site</code>, <code>survey_rectangle</code>, <code>survey_circle_rings</code></li>
+                    <li><strong>Inspection</strong>: <code>circular</code>, <code>helical</code></li>
+                    <li><strong>Perception</strong>: <code>hover_observe</code>, <code>take_photo</code></li>
+                    <li><strong>Control</strong>: <code>hold</code>, <code>station_keep</code></li>
+                    <li><strong>Mission/Safety</strong>: <code>return_home</code>, <code>replan</code>, <code>emergency_stop</code></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Example Plan</h3>
+                <div class="code-block">
+<pre><code>{
+  "Plan": [
+    {"action": "survey_rectangle", "site": "A"},
+    {"action": "hold"},
+    {"action": "go_to_site", "site": "B"},
+    {"action": "survey_circle_rings", "site": "B"},
+    {"action": "hold"},
+    {"action": "return_home"},
+    {"action": "hold"}
+  ]
+}
+</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="simulation-env">
+        <h2>Simulation Environment</h2>
+        <p>
+            All experiments are conducted in a simulated underwater environment using Gazebo and UUV Simulator with a BlueROV2 model.
+            The environment includes multiple coral sites with different geometries and depths.
+        </p>
+
+        <ul>
+            <li><strong>Simulator:</strong> Gazebo + UUV Simulator</li>
+            <li><strong>Robot:</strong> BlueROV2 (UUV Simulator model)</li>
+            <li><strong>Sensors:</strong> Depth, odometry, forward and downward cameras</li>
+            <li><strong>Sites:</strong> Rectangular and circular coral sites with configurable survey patterns</li>
+        </ul>
+
+        <p>
+            The <code>sites.yaml</code> configuration defines site positions and extents, which are used by semantic survey actions such as
+            <code>survey_rectangle</code> and <code>survey_circle_rings</code>.
+        </p>
+    </section>
+
+    <section id="getting-started">
+        <h2>Getting Started</h2>
+
+        <h3>1. Installation</h3>
+        <p>Follow the installation instructions in the GitHub README to:</p>
+        <ul>
+            <li>Install ROS Noetic and Gazebo</li>
+            <li>Install UUV Simulator</li>
+            <li>Clone and build <code>coral_inspection</code> in your <code>catkin_ws</code></li>
+        </ul>
+
+        <h3>2. Launch the Simulation</h3>
+        <div class="code-block">
+<pre><code>cd ~/catkin_ws
+source devel/setup.bash
+
+roslaunch coral_inspection coral_llm_demo.launch
+</code></pre>
+        </div>
+        <p>
+            This will start Gazebo, spawn the BlueROV2, load the underwater environment, and start the LLM planner, mission memory,
+            event monitor, and action executor nodes.
+        </p>
+
+        <h3>3. Submit a Mission Prompt</h3>
+        <p>The LLM planner listens to <code>/coral_captain/user_prompt</code>:</p>
+        <div class="code-block">
+<pre><code>rostopic pub /coral_captain/user_prompt std_msgs/String \
+"data: 'Survey site A using a lawnmower pattern, then inspect site B with an orbit and return home.'"
+</code></pre>
+        </div>
+
+        <h3>4. Inspect the Generated Plan</h3>
+        <div class="code-block">
+<pre><code>rostopic echo /coral_captain/plan
+</code></pre>
+        </div>
+
+        <h3>5. Monitor Execution</h3>
+        <div class="code-block">
+<pre><code># Executor status
+rostopic echo /coral_captain/executor_status
+
+# LLM planner status
+rostopic echo /coral_captain/llm_status
+
+# Mission memory state
+rostopic echo /coral_captain/memory_state
+</code></pre>
+        </div>
+    </section>
+
+    <section id="runtime-flow">
+        <h2>Runtime Topics & Monitoring</h2>
+
+        <h3>Key Topics</h3>
+        <ul>
+            <li><code>/coral_captain/user_prompt</code> – Natural-language user mission instructions</li>
+            <li><code>/coral_captain/plan</code> – JSON semantic mission plan</li>
+            <li><code>/coral_captain/llm_status</code> – Planner status and diagnostics</li>
+            <li><code>/coral_captain/executor_status</code> – Execution progress and outcomes</li>
+            <li><code>/coral_captain/memory_event</code> – Events that affect mission memory</li>
+            <li><code>/coral_captain/memory_state</code> – Current summarized mission memory</li>
+            <li><code>/bluerov2/pose_gt</code> – Ground-truth pose of the BlueROV2</li>
+        </ul>
+
+        <h3>List All Coral Captain Topics</h3>
+        <div class="code-block">
+<pre><code>rostopic list | grep coral_captain
+</code></pre>
+        </div>
+
+        <h3>Triggering the Executor Directly (Testing)</h3>
+        <p>You can manually publish a minimal plan to test the executor:</p>
+        <div class="code-block">
+<pre><code>rostopic pub /coral_captain/plan std_msgs/String \
+"data: '{\"Plan\": [{\"action\": \"hold\"}]}'"
+</code></pre>
+        </div>
+    </section>
+
+    <section id="citation">
+        <h2>Citation</h2>
+        <p>If you use this framework or codebase in your work, please cite:</p>
+        <div class="citation-box">
+<pre><code>@article{akram2024llmcoral,
+  title={LLM-Guided Adaptive Mission Planning for Autonomous Underwater Vehicles
+         in Coral Reef Monitoring},
+  author={Akram, Waseem and Din, Muhayy Ud and Sultan, Atif and Taha, Tarek and Hussain, Irfan},
+  journal={Preprint},
+  year={2024},
+  publisher={Elsevier}
+}
+</code></pre>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Coral Inspection – LLM-Guided Mission Planning for Underwater Robotics.</p>
+        <p>Contributions and pull requests are welcome on the GitHub repository.</p>
+    </footer>
+</div>
+</body>
+</html>
