@@ -56,6 +56,15 @@
             border-left: 4px solid #0077b6;
         }
 
+        .figure-caption {
+        font-size: 0.9rem;
+        color: #666;
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 25px;
+        font-style: italic;
+        }
+
         nav h2 {
             margin-bottom: 15px;
             color: #333;
@@ -362,6 +371,21 @@
                 </p>
             </div>
         </div>
+
+        <section id="framework-diagram">
+            <h2>System Framework</h2>
+            <p>
+                The overall framework combines natural-language instructions, an LLM-guided mission planner,
+                mission memory, event monitoring, and a semantic action executor integrated with the ROV
+                navigation stack.
+            </p>
+            <img src="assets/framework.png" alt="LLM-guided mission planning framework for coral inspection">
+            <div class="figure-caption">
+                LLM-guided mission planning framework with natural language instruction, system prompt,
+                mission memory, event monitor, semantic mission plan, action executor, and ROV navigation.
+            </div>
+        </section>
+
 
         <h3>Launch Configuration (Excerpt)</h3>
         <div class="code-block">
