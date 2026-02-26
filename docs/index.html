@@ -39,6 +39,33 @@
             font-weight: 700;
         }
 
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .video-card h4 {
+            margin-bottom: 10px;
+            color: #0077b6;
+        }
+
+        .video-card video {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+
+
         .subtitle {
             font-size: 1.2rem;
             color: #666;
@@ -575,6 +602,47 @@ rostopic echo /coral_captain/memory_state
 </code></pre>
         </div>
     </section>
+
+
+    <section id="results">
+        <h2>Results & Demonstrations</h2>
+        <p>
+            We evaluate the proposed LLM-guided mission planning framework across
+            representative coral monitoring scenarios, including multi-site missions,
+            semantic survey patterns, and event-driven replanning.
+        </p>
+
+        <div class="video-grid">
+
+            <div class="video-card">
+                <h4>Test 1 – Single-goal navigation</h4>
+                <video controls>
+                    <source src="assets/videos/test1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p> ROV navigates from the initial position toward a single inspection target and stabilizes at the goal location.</p>
+            </div>
+
+            <div class="video-card">
+                <h4>Test 2 – Multi-Site Mission</h4>
+                <video controls>
+                    <source src="assets/videos/test2.mp4" type="video/mp4">
+                </video>
+                <p>ROV executes sequential inspection of coral sites A, B, C, and D with return-to-home..</p>
+            </div>
+
+            <div class="video-card">
+                <h4>Test 3 – Event-Triggered Replanning</h4>
+                <video controls>
+                    <source src="assets/videos/test3.mp4" type="video/mp4">
+                </video>
+                <p>Online replanning triggered by runtime event and memory update.</p>
+            </div>
+
+        </div>
+    </section>
+
+
 
     <section id="citation">
         <h2>Citation</h2>
